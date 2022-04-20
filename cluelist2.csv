@@ -1,4 +1,5 @@
-dir,key,clue
-size,1,6
-shape,1,acdacdddfddfefdefdedffdfffacfdabcacf
-letters,1,461352214635145263653421532146326514
+key,dir,clue
+size,0,6
+shape,0,dabcddfdacffdfdacdfdeddfdefffdffabcf
+letters,0,165423613542342156234615521364456231
+prods,0,"[[6, 120, '', '', 8, 6], ['', 4, 15, '', '', ''], [6, '', 8, 5, '', 30], ['', 30, '', 18, 6, ''], [20, '', '', '', '', 4], ['', '', 36, '', '', '']]"
