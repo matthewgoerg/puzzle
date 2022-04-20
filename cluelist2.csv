@@ -1,14 +1,4 @@
 dir,key,clue
-num,15,blah
-num,8,blah
-num,15,bleh
-num,24,blah
-num,5,blah
-num,10,blah
-num,60,blah
-num,8,bleh
-num,2,bleh
-num,12,blah
-size,,6
-shape,,acacddddddeffefffddfabcefabbceabcacf
-letters,,352164214356526431645213163542431625
+size,1,6
+shape,1,acacddddddeffefffddfabcefabbceabcacf
+letters,1,352164214356526431645213163542431625
