@@ -1,0 +1,902 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	    <link rel="stylesheet" href=
+        "https://www.w3schools.com/w3css/4/w3.css">
+  
+
+</head>
+
+<body>
+<h1 style="font-size:80px; color:blue; margin:10px; text-align:center; font-weight: bold">因子の部屋</h1>
+
+  
+<style>
+.content {
+  max-width: 700px;
+  margin: auto;
+}
+
+#cw_container {
+  width: 700px;
+  height: 650px;
+  margin: 20px 0;
+  display: inline-block;
+  vertical-align: top;
+  justify-content: center;
+}
+
+* {
+	cursor: default;
+}
+
+*:focus {
+	outline: none;
+}
+
+
+rect { fill: none; stroke: black; }
+.a { stroke-dasharray: 40,40,80; }
+.b { stroke-dasharray: 40,40,40; }
+.c { stroke-dasharray: 120,40; }
+.d { stroke-dasharray: 80,40; }
+.e { stroke-dasharray: 0,40,0; }
+.f { stroke-dasharray: 0,40,120; }
+.g { stroke-dasharray: 0,0,0; }
+
+.img-overlay-wrap {
+  position: relative;
+  margin: auto;
+  max-width: 700px;
+}
+
+.img-overlay-wrap img { 
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   max-width: 100%;
+   height: auto;
+}
+
+.img-overlay-wrap svg {
+  position: absolute;
+  margin: auto;
+  top: 0;
+
+}
+
+h4 {
+  text-align:center;
+  height: 20px;
+  margin:-20;
+  padding:-10;
+}
+
+.button {
+  margin: auto;
+}
+
+.v1 {
+  border-left: 2px solid gray;
+  height: 694px;
+  position: absolute;
+  left: 14.6%;
+  margin-left: -1px;
+  top: 0;
+}
+
+.v2 {
+  border-left: 2px solid gray;
+  height: 694px;
+  position: absolute;
+  left: 29.1%;
+  margin-left: -3px;
+  top: 0;
+}
+
+.v3 {
+  border-left: 2px solid gray;
+  height: 694px;
+  position: absolute;
+  left: 43.75%;
+  margin-left: -6px;
+  top: 0;
+}
+
+.v4 {
+  border-left: 2px solid gray;
+  height: 694px;
+  position: absolute;
+  left: 58%;
+  margin-left: -7px;
+  top: 0;
+}
+
+.v5 {
+  border-left: 2px solid gray;
+  height: 694px;
+  position: absolute;
+  left: 72.5%;
+  margin-left: -9px;
+  top: 0;
+}
+
+.v6 {
+  border-left: 2px solid gray;
+  height: 694px;
+  position: absolute;
+  left: 86.5%;
+  margin-left: -7px;
+  top: 0;
+}
+
+
+
+.horizontal-line1 {
+	width: 100%;
+	height: 1px;
+	background-color: gray;
+	opacity: 1;
+    margin-top: 81px;
+}
+
+.horizontal-line2 {
+	width: 100%;
+	height: 1px;
+	background-color: gray;
+	opacity: 1;
+    margin-top: 99px;
+}
+
+.horizontal-line3 {
+	width: 100%;
+	height: 1px;
+	background-color: gray;
+	opacity: 1;
+    margin-top: 97px;
+}
+
+.horizontal-line4 {
+	width: 100%;
+	height: 1px;
+	background-color: gray;
+	opacity: 1;
+    margin-top: 99px;
+}
+
+.horizontal-line5 {
+	width: 100%;
+	height: 1px;
+	background-color: gray;
+	opacity: 1;
+    margin-top: 98px;
+}
+
+.horizontal-line6 {
+	width: 100%;
+	height: 1px;
+	background-color: gray;
+	opacity: 1;
+    margin-top: 99px;
+}
+
+.container {
+  height: 140px;
+  position: relative;
+  vertical-align: center;
+
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.w3-btn {
+	width: 230px;
+	font-size: 18;
+}
+
+</style>
+	<div class="img-overlay-wrap">
+		<div id="cw_container">		
+				<div class="v1"></div>
+				<div class="v2"></div>
+				<div class="v3"></div>
+				<div class="v4"></div>
+				<div class="v5"></div>
+				<div class="v6"></div>
+				<div class="horizontal-line1"></div>
+				<div class="horizontal-line2"></div>
+				<div class="horizontal-line3"></div>
+				<div class="horizontal-line4"></div>
+				<div class="horizontal-line5"></div>
+				<div class="horizontal-line6"></div>
+			<svg id="crossword" viewBox="0 0 282 305">
+			</svg>
+		</div>
+	</div>
+	<div class="container">
+		<div class="center">
+			<button onclick='checkPuzzle()' class="w3-btn w3-ripple w3-blue">Show errors</button>
+			<button onclick="resetPuzzle()" class="w3-btn w3-ripple w3-blue">Clear board</button>
+		</div>
+	</div>
+    <h4>Puzzle ID: <span id="rand_puzzle_text" ></span></h4>
+	  <script>
+		let rand_puzzle_num = Math.floor(Math.random() * 102)
+		var rand_puzzle_text = rand_puzzle_num.toString()
+		console.log('puzzle_num: ', rand_puzzle_text)
+		document.getElementById("rand_puzzle_text").innerHTML = rand_puzzle_text;
+	  </script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+
+// GLOBALS
+
+var currentBlock = 0;							// current location 0->dimension*dimension
+var selectedClue = "";							// clue in cluelist that is selected
+var highlightOpt = "R";							// direction of current focus
+var currentSel = "";							// square that is currently focused by id attribute 
+var products = "";								// HTML string of clues
+var downclues = "";								// HTML string of clues
+var dimension = 0;								// crossword grid size
+var emptyBlocks;								// how many empty squares left
+var totalEmpty;									// how many empty squares at start
+var autocheck = false;							// goes true when emptyBlocks = 0
+var blocks = [];								// multidimensional array with solution characters and blacks
+var prods = [];
+var prods_flat = [];
+var outlines = [];								// multidimensional array with cell outlines
+var cluenums = [];								// multidimensional array with clue numbers for building svg
+var cluenum = 1;								// 
+var prod_totals = {									// object storing the product totals
+	num: {}
+};
+var characters;
+
+
+
+// attach keydown event listener to body with output sent to svg
+d3.select('body')
+	.on('keydown', handleInput)
+	.on('blur', function(){});
+
+/**********************************************************/
+/******************** BUILD CLUE LIST *********************/
+/**********************************************************/
+
+d3.csv('https://raw.githubusercontent.com/matthewgoerg/puzzle/main/cluelist3.csv', getClues);
+
+
+function getClues(cluesrc) {
+	console.log('clues: ', cluesrc);
+	var cluesrc = cluesrc.filter(function (el) {
+	  return el.key == rand_puzzle_text;
+	});
+	for (k=0; k<cluesrc.length; k++) {
+		if (cluesrc[k].dir === 'size') {
+			dimension = parseInt(cluesrc[k].clue);
+			emptyBlocks = dimension * dimension;
+			totalEmpty = emptyBlocks;
+		}
+		if (cluesrc[k].dir === 'num') {
+			prod_totals.num[cluesrc[k].key] = cluesrc[k].clue.replace('&#44;',',');
+		}
+		else if (cluesrc[k].dir === 'shape') {
+			shapes = cluesrc[k].clue;
+		}
+		else if (cluesrc[k].dir === 'letters') {
+			characters = cluesrc[k].clue;
+		}
+		else if (cluesrc[k].dir === 'prods') {
+			prods_in = cluesrc[k].clue;
+			prods_flat = prods_in.split('_');		
+		}
+	}
+	buildGrid();
+}
+
+
+
+/**********************************************************/
+/********************** BUILD LAYOUT **********************/
+/**********************************************************/
+
+
+function buildGrid() {
+	// convert characters string into multidimensional array
+	// spaces are used to indicate black squares in crossword
+	for (i=0; i<dimension; i++) {
+		blocks.push([]);
+		for (j=i*dimension; j<(i*dimension)+dimension; j++) {
+			blocks[i].push(characters.slice(j,j+1));
+		}
+	}
+	for (i=0; i<dimension; i++) {
+		prods.push([]);
+		for (j=i*dimension; j<(i*dimension)+dimension; j++) {
+			prods[i].push(prods_flat.slice(j,j+1));
+		}
+	}
+	//console.log(blocks);
+	for (i=0; i<dimension; i++) {
+		outlines.push([]);
+		for (j=i*dimension; j<(i*dimension)+dimension; j++) {
+			outlines[i].push(shapes.slice(j,j+1));
+		}
+	}
+
+
+	//console.log(cluenums);
+
+	var crossword = d3.select("#crossword");
+
+	for (i=0; i<dimension; i++) {
+		for (j=0; j<dimension; j++) {
+			var block = crossword.append('g')
+								.attr('id', 'r' + i + 'c' + j);
+			var cell = block.append('rect')
+							.attr('value',i+j)
+							.attr('class','letterbox')
+							.attr('x',j*40+1)
+							.attr('y',i*40+1)
+							.attr('width',40)
+							.attr('height',40)
+							.attr('style',' stroke-width: 1; stroke: rgb(55,55,55); fill: rgb(255,255,255,0.5);');
+			if (outlines[i][j]==="a") {
+				cell.attr('style','stroke-width: 2; stroke: rgb(55,55,55); fill:rgb(255,255,255,0.5);')
+					.attr('class','a');
+			}
+			else if (outlines[i][j]==="b") {
+				cell.attr('style','stroke-width: 2; stroke: rgb(55,55,55); fill:rgb(255,255,255,0.5);')
+					.attr('class','b');
+			}
+			else if (outlines[i][j]==="c") {
+				cell.attr('style','stroke-width: 2; stroke: rgb(55,55,55); fill:rgb(255,255,255,0.5);')
+					.attr('class','c');
+			}
+			else if (outlines[i][j]==="d") {
+				cell.attr('style','stroke-width: 2; stroke: rgb(55,55,55); fill:rgb(255,255,255,0.5);')
+					.attr('class','d');
+			}
+			else if (outlines[i][j]==="e") {
+				cell.attr('style','stroke-width: 2; stroke: rgb(55,55,55); fill:rgb(255,255,255,0.5);')
+					.attr('class','e');
+			}
+			else if (outlines[i][j]==="f") {
+				cell.attr('style','stroke-width: 2; stroke: rgb(55,55,55); fill:rgb(255,255,255,0.5);')
+					.attr('class','f');
+			}
+	//		else if (outlines[i][j]==="g") {
+			else {
+				cell.attr('style','stroke-width: 2; stroke: rgb(55,55,55); fill:rgb(255,255,255,0.5);')
+					.attr('class','g');
+			}
+
+			if (prods[i][j] !== '') {
+				block.append('text')
+					.attr('x',j*40+4)
+					.attr('y',i*40+12)
+					.attr('style','fill: gray; font-size: 10px;')
+					.attr('id','clue' + prods[i][j])
+					.text(prods[i][j]);
+			}
+
+				block.append('text')
+					.attr('class','inputText')
+					.attr('x',j*40+20)
+					.attr('y',i*40+35)
+					.attr('text-anchor','middle')
+					.text('')
+					//.text(blocks[i][j])	// debugging: fill in solutions
+					.attr('style','fill: black;')
+					.style("font-size", function(d) { 
+											let font_size;
+											if (prods[i][j].length < 0) {
+												font_size = 30;
+											} else {
+												font_size = 20;
+											}
+											return font_size + "px";
+										}
+						)
+
+		}
+	}
+
+	// add listeners
+	d3.selectAll('rect').on('click', highlightSelection);
+	d3.selectAll('.inputText').on('click', highlightSelection);
+	
+
+}
+
+
+/**********************************************************/
+/****************** TEXT INPUT HANDLING *******************/
+/**********************************************************/
+
+function update(nAngle) {
+
+  // adjust the text on the range slider
+  d3.select("#nAngle-value").text(nAngle);
+  d3.select("#nAngle").property("value", nAngle);
+
+  // rotate the text
+  holder.select("text") 
+    .attr("transform", "translate(300,150) rotate("+nAngle+")");
+}
+
+
+function handleInput() {
+
+	var row = Math.floor(currentBlock/dimension);
+	var col = currentBlock%dimension;
+	var black = true;
+	var k=1;
+
+	var code = d3.event.keyCode;
+	var number = []
+	
+	document.addEventListener('keydown', (e) => {
+		e.preventDefault();
+		if (e.ctrlKey) {
+			number = d3.select('.target ~ .inputText').text()
+			number = number.replace(e.key,'');
+			d3.select('.target ~ .inputText').text(number);
+		}
+	});
+
+	if ((code >=49 && code <= 55) || (code >=97 && code <= 103)) {
+		var number = number + d3.event.key;
+		//if (d3.select('.target ~ .inputText').text()==='') { emptyBlocks--; }
+		number = d3.select('.target ~ .inputText').text() + number
+		d3.select('.target ~ .inputText').text(number);
+		//getNext(row,col);
+		//if(emptyBlocks===0) { autocheck=true; checkPuzzle(); }
+		//getNext();
+	}
+	else {
+		switch (code) {
+			case 37: //left
+				d3.event.preventDefault();
+		//		if (highlightOpt==='C') {
+					highlightSelection(null, currentBlock);
+		//		}
+				getLeft(); 
+				break;
+			case 38: //up
+				d3.event.preventDefault();
+		//		if (highlightOpt==='R') {
+					highlightSelection(null, currentBlock);
+		//		}
+				getUp(); 
+				break;
+			case 39: // right
+				d3.event.preventDefault();
+		//		if (highlightOpt==='C') {
+					highlightSelection(null, currentBlock);
+		//		}
+				 getRight(); 
+				break;
+			case 40: // down
+				d3.event.preventDefault();
+		//		if (highlightOpt==='R') {
+					highlightSelection(null, currentBlock);
+		//		}
+				 getDown('arrow'); 
+				break;
+			case 9: // tab
+				d3.event.preventDefault();
+				if (d3.event.ctrlKey) {
+					// prevClue();
+					break;
+				}
+			case 13: // enter
+				d3.event.preventDefault();
+				// nextClue();
+				break;
+			case 46: // delete
+			case 8: // backspace
+				d3.event.preventDefault();
+				if (d3.select('.target ~ .inputText').text() !== '') { 
+					d3.select('.target ~ .inputText').text('');
+					emptyBlocks++;
+				}
+				//getPrev();
+				break;
+		}
+	}
+	
+	var inputLetters = [];
+	var font_size = [];
+	var input_length = [];
+
+	for (i=0; i<dimension; i++) {
+		inputLetters.push([]);
+		for (j=0; j<dimension; j++) {
+			inputLetters[i].push(d3.selectAll('g > text.inputText')._groups[0][i*5+j].textContent);
+			input_length = d3.select("#crossword").select("g#r"+i+"c"+j).select("text.inputtext").text().length;
+			
+			if (input_length > 1) {
+				font_size = 10
+			} else {
+				font_size = 30
+			}
+			
+			d3.select("#crossword").select("g#r"+i+"c"+j).select("text.inputtext").attr('style','font-size: ' + font_size +'px;')
+		}
+	}
+	
+	
+	//console.log(d3.select("#crossword").selectAll("g").select("text.inputtext")[0])
+	console.log(d3.select("#crossword").select("g#r0c" + "1").select("text.inputtext").text().length)
+	
+	//d3.select("#crossword").selectAll("g").select("text.inputtext").attr('style','fill: gray; font-size: 10px;')
+	//d3.select("#crossword").selectAll("g").select("text.inputtext").attr('style','font-size: ' + 6 +'px;')
+}
+
+function getLeft() {
+	var row, col;
+	if (currentBlock!==0) {
+		// move left
+		//if (highlightOpt==='R') {
+			currentBlock--;
+			row = Math.floor(currentBlock/dimension);
+			col = currentBlock%dimension;
+			if (col >= 0) {
+				while (blocks[row][col] === ' ') {
+					currentBlock--;
+					col--;
+				}
+				highlightSelection(null, currentBlock);
+			}
+		}
+};
+
+function getUp() {
+	var row, col;
+	if (currentBlock!==0) {
+		// move up
+		//else {
+			currentBlock -= dimension;
+			if (currentBlock < 0) {
+				row = dimension-1;
+				col = currentBlock + dimension - 1;
+				currentBlock = row*dimension + col;
+			}
+			else {
+				row = Math.floor(currentBlock/dimension);
+				col = currentBlock%dimension;
+			}
+			if (row >= 0) {
+				while (blocks[row][col] === ' ') {
+					currentBlock -= dimension;
+					if (currentBlock < 0) {
+						row = dimension-1;
+						col = currentBlock + dimension - 1;
+						currentBlock = row*dimension + col;
+					}
+					else { row--; }
+				}
+				highlightSelection(null, currentBlock);
+			}
+		}
+	
+};
+
+
+function getRight(source) {
+	if (currentBlock!==(dimension*dimension)-1) {		// keeps currentBlock within array
+		// move right
+		//if (highlightOpt==='R') {
+			currentBlock++;
+			var row = Math.floor(currentBlock/dimension);
+			var col = currentBlock%dimension;
+			if (currentBlock < dimension*dimension) {
+				while (blocks[row][col] === ' ') {
+					currentBlock++;
+					col++;
+				}
+				highlightSelection(null, currentBlock);
+			}
+	}
+};
+
+function getDown(source) {
+	if (currentBlock!==(dimension*dimension)-1) {		// keeps currentBlock within array
+		// move down
+
+			currentBlock += dimension;
+			var row = Math.floor(currentBlock/dimension);
+			var col = currentBlock%dimension;
+			if (currentBlock < dimension*dimension) {
+				// if the next block is black and the key source was a letter
+				if (blocks[row][col] === ' ' && source !== 'arrow') {
+					nextClue();
+				}
+				// if the next block is black and the key source was the down key
+				else if (blocks[row][col] === ' ' && source === 'arrow') {
+					getNext(source);
+				}
+				// if the next block is white
+				else { highlightSelection(null, currentBlock); }
+			}
+			if (row >= dimension && source !== 'arrow') {
+				nextClue();
+			}
+			else if (row>=dimension && source === 'arrow') {
+				currentBlock = col+1;
+				if (blocks[0][currentBlock] === ' ') {
+					getNext(source);
+				}
+				else { highlightSelection(null, currentBlock); }
+			}
+
+	}
+};
+
+/**********************************************************/
+/********************** HIGHLIGHTING **********************/
+/**********************************************************/
+
+
+
+function highlightSelection(d, i) {
+	var row = Math.floor(i/dimension);
+	var col = i%dimension;
+	currentBlock = row*dimension+col;
+
+	if(blocks[row][col] !== " ") {
+		var id = '#r' + row + 'c' + col;
+		if (currentSel !== id) {
+			if (currentSel !== "") { // clear previously highlighted
+				clearHighlight(id, row, col);
+			}
+			highlightFocus(id, row, col);	// highlight new square
+
+			currentSel = id; // update 
+		}
+		else if (currentSel === id) {
+			switch(highlightOpt) {
+				case "R":
+					highlightOpt = "C";
+					clearHighlight(id, row, col);
+					highlightFocus(id, row, col);
+					break;
+				case "C":
+					highlightOpt = "R";
+					clearHighlight(id, row, col);
+					highlightFocus(id, row, col);
+					break;
+			}
+		}
+	}
+}
+
+function highlightFocus(id, row, col) { 
+	if (outlines[row][col]==="a") {
+		d3.select('.target').attr('class','letterbox');
+		d3.selectAll(id + ' > line').remove();
+		d3.select(id + ' > rect').attr('style','fill: rgb(125, 223, 255); stroke-width: 2; stroke: rgb(55,55,55); stroke-dasharray: 40,40,80;')
+								.attr('class', 'target letterbox');
+	}
+	else if (outlines[row][col]==="b") {
+		d3.select('.target').attr('class','letterbox');
+		d3.selectAll(id + ' > line').remove();
+		d3.select(id + ' > rect').attr('style','fill: rgb(125, 223, 255); stroke-width: 2; stroke: rgb(55,55,55); stroke-dasharray: 40,40,40;')
+							.attr('class', 'target letterbox');
+	} else if (outlines[row][col]==="c") {
+		d3.select('.target').attr('class','letterbox');
+		d3.selectAll(id + ' > line').remove();
+		d3.select(id + ' > rect').attr('style','fill: rgb(125, 223, 255); stroke-width: 2; stroke: rgb(55,55,55); stroke-dasharray: 120,40;')
+							.attr('class', 'target letterbox');
+	} else if (outlines[row][col]==="d") {
+		d3.select('.target').attr('class','letterbox');
+		d3.selectAll(id + ' > line').remove();
+		d3.select(id + ' > rect').attr('style','fill: rgb(125, 223, 255); stroke-width: 2; stroke: rgb(55,55,55); stroke-dasharray: 80,40;')
+								.attr('class', 'target letterbox');
+	} else if (outlines[row][col]==="e") {
+		d3.select('.target').attr('class','letterbox');
+		d3.selectAll(id + ' > line').remove();
+		d3.select(id + ' > rect').attr('style','fill: rgb(125, 223, 255); stroke-width: 2; stroke: rgb(55,55,55); stroke-dasharray: 0,40,0;')
+							.attr('class', 'target letterbox');
+	} else if (outlines[row][col]==="f") {
+		d3.select('.target').attr('class','letterbox');
+		d3.selectAll(id + ' > line').remove();
+		d3.select(id + ' > rect').attr('style','fill: rgb(125, 223, 255); stroke-width: 2; stroke: rgb(55,55,55); stroke-dasharray: 0,40,120;')
+							.attr('class', 'target letterbox');
+	} else  {
+		d3.select('.target').attr('class','letterbox');
+		d3.selectAll(id + ' > line').remove();
+		d3.select(id + ' > rect').attr('style','fill: rgb(125, 223, 255); stroke-width: 2; stroke: rgb(55,55,55); stroke-dasharray: 0,0,0;')
+							.attr('class', 'target letterbox');
+	} 
+			
+
+}
+
+function clearHighlight(id, row, col) {
+	d3.selectAll('.letterbox').style("fill","none");
+}
+
+/**********************************************************/
+/********************* HIGHLIGHT CLUES ********************/
+/**********************************************************/
+
+
+
+/**********************************************************/
+/********************** SUCCESS CHECK *********************/
+/**********************************************************/
+
+function checkPuzzle() {
+	// build input answers array
+	var inputLetters = [];
+	var isComplete = true;
+	var nrows = 7;
+	for (i=0; i<dimension; i++) {
+		inputLetters.push([]);
+		for (j=0; j<dimension; j++) {
+			inputLetters[i].push(d3.selectAll('g > text.inputText')._groups[0][i*nrows+j].textContent);
+		}
+	}
+
+	// find errors
+	var errors = [];
+	for (i=0; i<dimension; i++) {
+		for (j=0; j<dimension; j++) {
+			if ((blocks[i][j] !== " ") && (inputLetters[i][j] !== "")) {
+				if (inputLetters[i][j]!==blocks[i][j]) {
+					errors.push(i*nrows+j);
+				}
+			}
+		}
+	}
+
+	if (autocheck) {
+		if (errors.length === 0) {
+			displaySuccess();
+		}
+		else {
+			displayCompleteButWrong();
+		}
+	}
+	else {
+		showErrors(errors);
+	}
+}
+
+function showErrors(errors) {
+	// highlight errors
+	for (i=0; i<errors.length; i++) {
+		var erow = Math.floor(errors[i]/dimension);
+		var ecol = errors[i]%dimension;
+		var errorid = '#r' + erow + 'c' + ecol;
+		var errorcell = d3.select(errorid);
+		var x1 = parseInt(errorcell.select('rect').attr('x'));
+		var x2 = x1 + 40;
+		var y1 = parseInt(errorcell.select('rect').attr('y'));
+		var y2 = y1 + 40;
+		errorcell.append('line')
+					.attr('class','e1')
+					.attr('x1',x1)
+					.attr('y1',y1)
+					.attr('x2',x2)
+					.attr('y2',y2)
+					.attr('style','stroke: red; stroke-width: 3;');
+		errorcell.append('line')
+					.attr('class','e2')
+					.attr('x1',x2)
+					.attr('y1',y1)
+					.attr('x2',x1)
+					.attr('y2',y2)
+					.attr('style','stroke: red; stroke-width: 3;');
+	}
+}
+
+// create default box shadow
+var defs = d3.select('#crossword').append('defs');
+var shadow = defs.append('filter')
+					.attr('id','boxShadow')
+						.append('feDropShadow')
+						.attr('dx',2)
+						.attr('dy',2)
+						.attr('stdDeviation',1);
+
+function drawSuccessBox() {
+	var successbox = d3.select('#crossword').append('g')
+												.attr('id','successBox');
+	// to grey out the crossword
+	successbox.append('rect')
+				.attr('x',0)
+				.attr('y',0)
+				.attr('width','100%')
+				.attr('height','100%')
+				.attr('style','fill: rgb(255,255,255); opacity: 0.75;');
+
+	// the visual box
+	successbox.append('rect')
+				.attr('x',150)
+				.attr('y',225)
+				.attr('width',300)
+				.attr('height',150)
+				.attr('style','stroke-width: 1; stroke: rgb(55,55,55); fill: rgb(255,255,255); filter:url(#boxShadow);');
+
+	// close box button
+	successbox.append('rect')
+				.attr('x',225)
+				.attr('y',321)
+				.attr('width',150)
+				.attr('height',25)
+				.attr('ry',10)
+				.attr('rx',10)
+				.attr('style','stroke-width: 1; stroke: rgb(0,0,0); fill: rgb(255,255,255); filter:url(#boxShadow);')
+				.on('click', function() { d3.select('#successBox').remove(); autocheck=false; });
+
+	return successbox;
+}
+
+function displaySuccess() {
+	var successbox = drawSuccessBox();
+
+	// Congratulations text
+	successbox.append('text')
+				.attr('x',300)
+				.attr('y',285)
+				.attr('text-anchor', 'middle')
+				.attr('style','fill: black; font-size: 24px;')
+				.text('Congratulations!');
+
+	// close box button text
+	successbox.append('text')
+				.attr('x',300)
+				.attr('y',340)
+				.attr('text-anchor', 'middle')
+				.attr('style','fill: black; font-size: 18px;')
+				.text('Great! Bye!')
+				.on('click', function() { d3.select('#successBox').remove(); autocheck=false; });
+}
+
+function displayCompleteButWrong() {
+	var successbox = drawSuccessBox();
+
+	// Close but not quite text
+	var successlabel = successbox.append('text')
+								.attr('text-anchor', 'middle')
+								.attr('style','fill: black; font-size: 18px;');
+		successlabel.append('tspan')
+					.attr('x',300)
+					.attr('y',275)
+					.text('You completed the puzzle but');
+		successlabel.append('tspan')
+					.attr('x',300)
+					.attr('y',300)
+					.text('at least one letter is wrong!');
+
+	// close box button text
+	successbox.append('text')
+				.attr('x',300)
+				.attr('y',340)
+				.attr('text-anchor', 'middle')
+				.attr('style','fill: black; font-size: 18px;')
+				.text('Go for it!')
+				.on('click', function() { d3.select('#successBox').remove(); autocheck=false; });
+}
+
+function resetPuzzle() {
+	d3.selectAll('g > .inputText').text('');
+	d3.selectAll('g > .e1').remove();
+	d3.selectAll('g > .e2').remove();
+	emptyBlocks=totalEmpty;
+}
+</script>
+</body>
+
+</html>
