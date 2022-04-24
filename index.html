@@ -620,15 +620,6 @@ document.getElementById("sixBtn").addEventListener("click", function() {
 	drawNumbers();
 });
 
-document.getElementById("sevenBtn").addEventListener("click", function() {
-	var click_number = 7;
-	click_number = d3.select('.target ~ .inputText').text() + click_number
-	//console.log(click_number);
-	d3.select('.target ~ .inputText').text(click_number);
-	
-	drawNumbers();
-});
-
 document.getElementById("deleteBtn").addEventListener("click", function() {
 	if (d3.select('.target ~ .inputText').text() !== '') { 
 		d3.select('.target ~ .inputText').text('');
