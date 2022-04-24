@@ -26,9 +26,9 @@
 }
 
 #cw_container {
-  width: 800px;
-  height: 705px;
-  margin: 0px 0px;
+  width: 700px;
+  height: 650px;
+  margin: 20px 0;
   display: inline-block;
   vertical-align: top;
   justify-content: center;
@@ -55,11 +55,11 @@ rect { fill: none; stroke: black; }
 .img-overlay-wrap {
   position: relative;
   margin: auto;
-  max-width: 800px;
+  max-width: 700px;
 }
 
 .img-overlay-wrap img { 
-
+   display: block;
    margin-left: auto;
    margin-right: auto;
    max-width: 100%;
@@ -68,7 +68,7 @@ rect { fill: none; stroke: black; }
 
 .img-overlay-wrap svg {
   position: absolute;
-  max-width: 100%;
+  margin: auto;
   top: 0;
 
 }
@@ -86,87 +86,106 @@ h4 {
 
 .v1 {
   border-left: 2px solid gray;
-  height: 790px;
+  height: 694px;
   position: absolute;
-  left: 16.8%;
+  left: 14.6%;
   margin-left: -1px;
   top: 0;
 }
 
 .v2 {
   border-left: 2px solid gray;
-  height: 790px;
+  height: 694px;
   position: absolute;
-  left: 33.5%;
+  left: 29.1%;
   margin-left: -3px;
   top: 0;
 }
 
 .v3 {
   border-left: 2px solid gray;
-  height: 790px;
+  height: 694px;
   position: absolute;
-  left: 50.1%;
+  left: 43.75%;
   margin-left: -6px;
   top: 0;
 }
 
 .v4 {
   border-left: 2px solid gray;
-  height: 790px;
+  height: 694px;
   position: absolute;
-  left: 66.5%;
+  left: 58%;
   margin-left: -7px;
   top: 0;
 }
 
 .v5 {
   border-left: 2px solid gray;
-  height: 790px;
+  height: 694px;
   position: absolute;
-  left: 83.1%;
+  left: 72.5%;
   margin-left: -9px;
   top: 0;
 }
 
+.v6 {
+  border-left: 2px solid gray;
+  height: 694px;
+  position: absolute;
+  left: 86.5%;
+  margin-left: -7px;
+  top: 0;
+}
+
+
+
 .horizontal-line1 {
-	width: 98%;
+	width: 100%;
 	height: 1px;
 	background-color: gray;
 	opacity: 1;
-    margin-top: 135px;
+    margin-top: 81px;
 }
 
 .horizontal-line2 {
-	width: 98%;
+	width: 100%;
 	height: 1px;
 	background-color: gray;
 	opacity: 1;
-    margin-top: 128px;
+    margin-top: 99px;
 }
 
 .horizontal-line3 {
-	width: 98%;
+	width: 100%;
 	height: 1px;
 	background-color: gray;
 	opacity: 1;
-    margin-top: 130px;
+    margin-top: 97px;
 }
 
 .horizontal-line4 {
-	width: 98%;
+	width: 100%;
 	height: 1px;
 	background-color: gray;
 	opacity: 1;
-    margin-top: 129px;
+    margin-top: 99px;
 }
 
 .horizontal-line5 {
-	width: 98%;
+	width: 100%;
 	height: 1px;
 	background-color: gray;
 	opacity: 1;
-    margin-top: 129px;
+    margin-top: 98px;
+}
+
+.horizontal-line6 {
+	width: 100%;
+	height: 1px;
+	background-color: gray;
+	opacity: 1;
+    margin-top: 99px;
 }
 
 .container {
@@ -248,7 +267,7 @@ h4 {
 </style>
 <!--
 <h1 style="font-size:80px; color:blue; margin:0px; text-align:center; font-weight: bold;">因子の部屋</h1>
---><div class="container3"></div>
+--><div class="container2"></div>
 	<div class="img-overlay-wrap">
 		<div id="cw_container">		
 				<div class="v1"></div>
@@ -256,32 +275,35 @@ h4 {
 				<div class="v3"></div>
 				<div class="v4"></div>
 				<div class="v5"></div>
+				<div class="v6"></div>
 				<div class="horizontal-line1"></div>
 				<div class="horizontal-line2"></div>
 				<div class="horizontal-line3"></div>
 				<div class="horizontal-line4"></div>
 				<div class="horizontal-line5"></div>
-			<svg id="crossword" viewBox="0 0 245 305">
+				<div class="horizontal-line6"></div>
+			<svg id="crossword" viewBox="0 0 282 305">
 			</svg>
 		</div>
 	</div>
-	<div class="container"></div>
 	<div class="container2"></div>
 	 <div class="container">
 		<div class="center">
 			<button id="oneBtn" class="num-btn w3-ripple w3-blue">1</button>
 			<button id="twoBtn" class="num-btn w3-ripple w3-blue">2</button>
 			<button id="threeBtn" class="num-btn w3-ripple w3-blue">3</button>
+			<button id="fourBtn" class="num-btn w3-ripple w3-blue">4</button>
 		</div>
 	 </div>
 	<div class="container2"></div>
 	 <div class="container">
 		<div class="center">
-			<button id="fourBtn" class="num-btn w3-ripple w3-blue">4</button>
 			<button id="fiveBtn" class="num-btn w3-ripple w3-blue">5</button>
 			<button id="sixBtn" class="num-btn w3-ripple w3-blue">6</button>
+			<button id="sevenBtn" class="num-btn w3-ripple w3-blue">7</button>
 		</div>
 	 </div>
+	 <div class="container2"></div>
 	 <div class="container2"></div>
 	 <div class="container">
 		<div class="center">
@@ -373,7 +395,7 @@ d3.select('body')
 /******************** BUILD CLUE LIST *********************/
 /**********************************************************/
 
-d3.csv('https://raw.githubusercontent.com/matthewgoerg/puzzle/main/cluelist2.csv', getClues);
+d3.csv('https://raw.githubusercontent.com/matthewgoerg/puzzle/main/cluelist3.csv', getClues);
 
 
 function getClues(cluesrc) {
