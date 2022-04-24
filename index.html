@@ -9,14 +9,7 @@
 </head>
 
 <body>
-<h1 style="font-size:80px; color:blue; margin:0px; text-align:center; font-weight: bold;">因子の部屋</h1>
-<h4 style="padding-bottom: 60px;">Puzzle ID: <span id="rand_puzzle_text" ></span></h4>
-	  <script>
-		let rand_puzzle_num = Math.floor(Math.random() * 102)
-		var rand_puzzle_text = rand_puzzle_num.toString()
-		console.log('puzzle_num: ', rand_puzzle_text)
-		document.getElementById("rand_puzzle_text").innerHTML = rand_puzzle_text;
-	  </script>
+
 <style>
 .content {
   max-width: 700px;
@@ -197,13 +190,13 @@ h4 {
 }
 
 .container2 {
-  height: 25px;
+  height: 80px;
   position: relative;
   vertical-align: center;
 }
 
 .container3 {
-  height: 10px;
+  height: 30px;
   position: relative;
   vertical-align: center;
 }
@@ -231,16 +224,16 @@ h4 {
 }
 
 .num-btn {
-	width: 100px;
-	height: 100px;
+	width: 170px;
+	height: 170px;
 	font-size:60px;
 	font-weight: bold;
 	border: none;
 }
 
 .left-btn {
-	width: 100px;
-	height: 100px;
+	width: 170px;
+	height: 170px;
     transform: translate(-60%, 5%);
 	font-size:60px;
 	font-weight: bold;
@@ -248,15 +241,32 @@ h4 {
 }
 
 .right-btn {
-	width: 100px;
-	height: 100px;
+	width: 170px;
+	height: 170px;
     transform: translate(60%, 5%);
 	font-size:60px;
 	font-weight: bold;
 	border: none;
 }
 
+.delete-btn {
+	width: 300px;
+	height: 120px;
+    transform: translate(0%, 5%);
+	font-size:30px;
+	font-weight: bold;
+	border: none;
+}
+
 </style>
+<h1 style="font-size:80px; color:blue; margin:0px; text-align:center; font-weight: bold;">因子の部屋</h1>
+<h4 style="padding-bottom: 60px;">Puzzle ID: <span id="rand_puzzle_text" ></span></h4>
+	  <script>
+		let rand_puzzle_num = Math.floor(Math.random() * 102)
+		var rand_puzzle_text = rand_puzzle_num.toString()
+		console.log('puzzle_num: ', rand_puzzle_text)
+		document.getElementById("rand_puzzle_text").innerHTML = rand_puzzle_text;
+	  </script>
 	<div class="img-overlay-wrap">
 		<div id="cw_container">		
 				<div class="v1"></div>
@@ -275,12 +285,6 @@ h4 {
 			</svg>
 		</div>
 	</div>
-	<div class="container">
-		<div class="center">
-			<button onclick='checkPuzzle()' class="w3-btn w3-ripple w3-blue">Show errors</button>
-			<button onclick="resetPuzzle()" class="w3-btn w3-ripple w3-blue">Clear board</button>
-		</div>
-	</div>
 	<div class="container2"></div>
 	 <div class="container">
 		<div class="center">
@@ -292,7 +296,7 @@ h4 {
 			</div>
 		</div>
 	 </div>
-	<div class="container3"></div>
+	<div class="container2"></div>
 	 <div class="container">
 		<div class="center">
 			<div id="option">
@@ -306,9 +310,7 @@ h4 {
 	 <div class="container">
 		<div class="center">
 			<div id="option">
-
-					<button id="upBtn" class="num-btn w3-ripple w3-blue">&#8679</button>
-
+				<button id="upBtn" class="num-btn w3-ripple w3-blue">&#8679</button>
 			</div>
 		</div>
 	</div>
@@ -316,10 +318,8 @@ h4 {
     <div class="container">
 		<div class="center">
 			<div id="option">
-
-					<button id="leftBtn" class="left-btn w3-ripple w3-blue">&#8678</button>
-					<button id="rightBtn" class="right-btn w3-ripple w3-blue">&#8680</button>
-
+				<button id="leftBtn" class="left-btn w3-ripple w3-blue">&#8678</button>
+				<button id="rightBtn" class="right-btn w3-ripple w3-blue">&#8680</button>
 			</div>
 		</div>
 	</div>
@@ -327,10 +327,27 @@ h4 {
     <div class="container">
 		<div class="center">
 			<div id="option">
-
 					<button id="downBtn" class="num-btn w3-ripple w3-blue">&#8681</button>
-				</div>	
-
+			</div>	
+		</div>
+	</div>
+	<div class="container2"></div>
+		<div class="container">
+			<div class="center">
+				<div id="option">
+						<button id="deleteBtn" class="delete-btn w3-ripple w3-blue">Clear cell</button>
+					</div>	
+			</div>
+		</div>
+	</div>
+		</div>
+	 </div>
+	<div class="container"></div>
+	<div class="container"></div>
+	<div class="container">
+		<div class="center">
+			<button onclick='checkPuzzle()' class="w3-btn w3-ripple w3-blue">Show errors</button>
+			<button onclick="resetPuzzle()" class="w3-btn w3-ripple w3-blue">Clear board</button>
 		</div>
 	</div>
 
@@ -628,6 +645,15 @@ document.getElementById("sevenBtn").addEventListener("click", function() {
 	drawNumbers();
 });
 
+document.getElementById("deleteBtn").addEventListener("click", function() {
+	if (d3.select('.target ~ .inputText').text() !== '') { 
+		d3.select('.target ~ .inputText').text('');
+		emptyBlocks++;
+	}
+	
+	drawNumbers();
+});
+
 function handleInput() {
 
 	var row = Math.floor(currentBlock/dimension);
@@ -646,9 +672,6 @@ function handleInput() {
 			d3.select('.target ~ .inputText').text(number);
 		}
 	});
-	
-
-	
 
 	if ((code >=49 && code <= 55) || (code >=97 && code <= 103)) {
 		var number = number + d3.event.key;
