@@ -666,10 +666,7 @@ document.getElementById("sixBtn").addEventListener("click", function() {
 });
 
 document.getElementById("deleteBtn").addEventListener("click", function() {
-	if (d3.select('.target ~ .inputText').text() !== '') { 
-		d3.select('.target ~ .inputText').text('');
-		emptyBlocks++;
-	}
+	d3.select('.target ~ .inputText').text('');
 	
 	drawNumbers();
 });
