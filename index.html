@@ -187,6 +187,7 @@ h4 {
   height: 100px;
   position: relative;
   vertical-align: center;
+  white-space: nowrap;
 }
 
 .container2 {
@@ -224,16 +225,16 @@ h4 {
 }
 
 .num-btn {
-	width: 120px;
-	height: 120px;
+	width: 170px;
+	height: 170px;
 	font-size:60px;
 	font-weight: bold;
 	border: none;
 }
 
 .left-btn {
-	width: 120px;
-	height: 120px;
+	width: 170px;
+	height: 170px;
     transform: translate(-60%, 5%);
 	font-size:60px;
 	font-weight: bold;
@@ -241,8 +242,8 @@ h4 {
 }
 
 .right-btn {
-	width: 120px;
-	height: 120px;
+	width: 170px;
+	height: 170px;
     transform: translate(60%, 5%);
 	font-size:60px;
 	font-weight: bold;
@@ -251,7 +252,7 @@ h4 {
 
 .delete-btn {
 	width: 300px;
-	height: 120px;
+	height: 110px;
     transform: translate(0%, 5%);
 	font-size:30px;
 	font-weight: bold;
@@ -259,14 +260,9 @@ h4 {
 }
 
 </style>
+<!--
 <h1 style="font-size:80px; color:blue; margin:0px; text-align:center; font-weight: bold;">因子の部屋</h1>
-<h4 style="padding-bottom: 60px;">Puzzle ID: <span id="rand_puzzle_text" ></span></h4>
-	  <script>
-		let rand_puzzle_num = Math.floor(Math.random() * 102)
-		var rand_puzzle_text = rand_puzzle_num.toString()
-		console.log('puzzle_num: ', rand_puzzle_text)
-		document.getElementById("rand_puzzle_text").innerHTML = rand_puzzle_text;
-	  </script>
+-->
 	<div class="img-overlay-wrap">
 		<div id="cw_container">		
 				<div class="v1"></div>
@@ -285,27 +281,24 @@ h4 {
 			</svg>
 		</div>
 	</div>
-	<div class="container3"></div>
+	<div class="container2"></div>
 	 <div class="container">
 		<div class="center">
-			<div id="option">
-					<button id="oneBtn" class="num-btn w3-ripple w3-blue">1</button>
-					<button id="twoBtn" class="num-btn w3-ripple w3-blue">2</button>
-					<button id="threeBtn" class="num-btn w3-ripple w3-blue">3</button>
-					<button id="fourBtn" class="num-btn w3-ripple w3-blue">4</button>
-			</div>
+			<button id="oneBtn" class="num-btn w3-ripple w3-blue">1</button>
+			<button id="twoBtn" class="num-btn w3-ripple w3-blue">2</button>
+			<button id="threeBtn" class="num-btn w3-ripple w3-blue">3</button>
+			<button id="fourBtn" class="num-btn w3-ripple w3-blue">4</button>
 		</div>
 	 </div>
-	<div class="container3"></div>
+	<div class="container2"></div>
 	 <div class="container">
 		<div class="center">
-			<div id="option">
-					<button id="fiveBtn" class="num-btn w3-ripple w3-blue">5</button>
-					<button id="sixBtn" class="num-btn w3-ripple w3-blue">6</button>
-					<button id="sevenBtn" class="num-btn w3-ripple w3-blue">7</button>
-			</div>
+			<button id="fiveBtn" class="num-btn w3-ripple w3-blue">5</button>
+			<button id="sixBtn" class="num-btn w3-ripple w3-blue">6</button>
+			<button id="sevenBtn" class="num-btn w3-ripple w3-blue">7</button>
 		</div>
 	 </div>
+	 <div class="container2"></div>
 	 <div class="container2"></div>
 	 <div class="container">
 		<div class="center">
@@ -350,6 +343,13 @@ h4 {
 			<button onclick="resetPuzzle()" class="w3-btn w3-ripple w3-blue">Clear board</button>
 		</div>
 	</div>
+	<h4 style="padding-bottom: 60px;">Puzzle ID: <span id="rand_puzzle_text" ></span></h4>
+	  <script>
+		let rand_puzzle_num = Math.floor(Math.random() * 102)
+		var rand_puzzle_text = rand_puzzle_num.toString()
+		console.log('puzzle_num: ', rand_puzzle_text)
+		document.getElementById("rand_puzzle_text").innerHTML = rand_puzzle_text;
+	  </script>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
