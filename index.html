@@ -224,7 +224,7 @@ h4 {
 
 .w3-btn {
 	width: 230px;
-	font-size: 18;
+	font-size: 30px;
 	background-color:#058ED9;
 	color:#F4EBD9;
 }
@@ -299,7 +299,7 @@ h4 {
 
 .link-btn {
 	width: 300px;
-	height: 80px;
+	height: 70px;
     transform: translate(0%, 5%);
 	font-size:30px;
 	background-color:#058ED9;
@@ -344,7 +344,7 @@ h4 {
 	<div class="container3"></div>
 	 <div class="container">
 		<div class="center">
-			<input type="button" name="Remove number" value="Remove number" id="select" onclick="colorchange('select')" class="remove-num-btn w3-ripple" />
+			<input type="button" name="Remove mode (toggle)" value="Remove mode (toggle)" id="select" onclick="colorchange('select')" class="remove-num-btn w3-ripple" />
 			<button id="fourBtn" class="num-btn w3-ripple">4</button>
 			<button id="fiveBtn" class="num-btn w3-ripple">5</button>
 			<button id="sixBtn" class="num-btn w3-ripple">6</button>
@@ -373,20 +373,22 @@ h4 {
 			</div>	
 		</div>
 	</div>
-	<div class="container2"></div>
+	<div class="container"></div>
+	<div class="container"></div>
+	<div class="container"></div>
 	<div class="container"></div>
 	<div class="container">
 		<div class="center">
-			<button onclick="document.location='https://en.wikipedia.org/wiki/Inshi_no_heya'" class="link-btn w3-ripple">How to play</button>
+			<button onclick="document.location='https://en.wikipedia.org/wiki/Inshi_no_heya'" class="w3-btn w3-ripple">How to play</button>
 		</div>
 	 </div>
-	<div class="container"></div>
 	<div class="container2">
 		<div class="center">
 			<button onclick='checkPuzzle()' class="w3-btn w3-ripple">Show errors</button>
 			<button onclick="resetPuzzle()" class="w3-btn w3-ripple">Clear board</button>
 		</div>
 	</div>
+	<div class="container3"></div>
 	<h4 style="padding-bottom: 60px;">Puzzle ID: <span id="rand_puzzle_text" ></span></h4>
 	  <script>
 		let rand_puzzle_num = Math.floor(Math.random() * 1400)
