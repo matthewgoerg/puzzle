@@ -2,6 +2,7 @@
 
 <head>
 	<meta charset="UTF-8">
+	
 	    <link rel="stylesheet" href=
         "https://www.w3schools.com/w3css/4/w3.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -403,6 +404,17 @@ h4 {
 
 
 // GLOBALS
+
+function zoomOutMobile() {
+  var viewport = document.querySelector('meta[name="viewport"]');
+
+  if ( viewport ) {
+    viewport.content = "initial-scale=0.1";
+    viewport.content = "width=1200";
+  }
+}
+
+zoomOutMobile();
 
 var currentBlock = 0;							// current location 0->dimension*dimension
 var selectedClue = "";							// clue in cluelist that is selected
