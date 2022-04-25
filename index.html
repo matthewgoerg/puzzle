@@ -344,7 +344,7 @@ h4 {
 	<div class="container3"></div>
 	 <div class="container">
 		<div class="center">
-			<input type="button" name="Remove mode (toggle)" value="Remove mode (toggle)" id="select" onclick="colorchange('select')" class="remove-num-btn w3-ripple" />
+			<input type="button" name="Remove mode (toggle)" value="Remove mode (off)" id="select" onclick="colorchange('select')" class="remove-num-btn w3-ripple" />
 			<button id="fourBtn" class="num-btn w3-ripple">4</button>
 			<button id="fiveBtn" class="num-btn w3-ripple">5</button>
 			<button id="sixBtn" class="num-btn w3-ripple">6</button>
@@ -632,6 +632,7 @@ function updateData() {
 function colorchange(id) {
 
     var background = document.getElementById(id).style.backgroundColor;
+	var btn = document.getElementById("select");
 	
     if (background == "rgb(119, 104, 93)") {
         document.getElementById(id).style.background = "rgb(163, 154, 146)";
@@ -643,6 +644,12 @@ function colorchange(id) {
     } else {
         delete_toggle = false;
     }
+	if(btn.value=="Remove mode (off)"){
+       btn.value="Remove mode (on)";
+      }
+    else{
+      btn.value="Remove mode (off)";
+  }
 
 }
 
